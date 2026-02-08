@@ -8,13 +8,14 @@ import { useEffect } from "react";
 export default function Home() {
   // Mastery Tip: Track a "Page View" event manually if needed, 
   // or just log that the app is ready.
-  useEffect(() => {
-    pushToDataLayer({
-      event: "page_load",
-      page_title: "GA4 Mastery Lab",
-      user_status: "anonymous"
+
+    useEffect(() => {
+  // Pass the string first, then the object
+    pushToDataLayer("page_load", {
+        page_title: "GA4 Mastery Lab",
+        user_status: "anonymous"
     });
-  }, []);
+    }, []);
 
   return (
     <main className="min-h-screen bg-gray-100 py-12 px-4">
