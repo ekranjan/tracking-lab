@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📊 GA4 Mastery Lab: React 19 Analytics Implementation
 
-## Getting Started
+A professional-grade demonstration of analytics architecture using **React 19 (Next.js 15)**, **Google Tag Manager (GTM)**, and **Google Analytics 4 (GA4)**. This project demonstrates how to bridge modern frontend state management with enterprise data collection standards.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Technical Highlights
+* **React 19 Hook Integration:** Optimized use of `useState` and `useEffect` for state-driven event dispatching.
+* **Asynchronous Tag Injection:** Securely injecting GTM using `dangerouslySetInnerHTML` within the Next.js `Script` component for zero-block rendering.
+* **Centralized DataLayer Library:** A dedicated `/lib/gtm.ts` utility to standardize and sanitize event payloads.
+* **Environment-Led Configuration:** Secure management of Measurement IDs via `.env` to support CI/CD best practices.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠️ Project Setup & Installation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 1. Prerequisites
+    * **Node.js:** 18.x or later
+    * **Package Manager:** npm, pnpm, or yarn
 
-## Learn More
+### 2. Environment Configuration (.env)
+    Create a `.env.local` file in the root directory. This ensures your tracking IDs are not hardcoded and can be managed securely across different environments.
 
-To learn more about Next.js, take a look at the following resources:
+    ```text
+    NEXT_PUBLIC_GTM_ID=GTM-XXXXXXX
+    NEXT_PUBLIC_GA4_ID=G-XXXXXXXXXX
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 3. Installation & Local Development
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+    # Clone the repository
+    git clone [https://github.com/your-username/ga4-mastery-lab.git](https://github.com/your-username/ga4-mastery-lab.git)
 
-## Deploy on Vercel
+    # Navigate into the directory
+    cd ga4-mastery-lab
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    # Install dependencies
+    npm install
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+    # Run the development server
+    npm run dev
+
+⚙️ GTM & Analytics Architecture
+    Naming Conventions
+    To ensure maintainability in enterprise containers, the following standards were applied:
+   * Triggers: CE - [Event Name] (Custom Event)
+   * Variables: dlv - [Data Key] (Data Layer Variable)
+   * Tags: GA4 - [Purpose] (GA4 Event Tag)
+
+**Event Schema & Tracking Steps**
+    This project tracks a 3-step lead generation funnel:
+    | Step    | EventName        | Parameter Name | Value           | Type
+    | Step 1  | form_progression | step_number    | 1               | Dynamic
+    | Step 1  | form_progression | step_label     | Contact Info    | Dynamic
+    | Step 2  | form_progression | step_number    | 2               | Dynamic
+    | Step2   | form_progression | step_label     | Selection       | Dynamic
+    | Success | form_complete    | method         | multi_step_form | Static
+
+📊 GA4 Reporting & Analysis
+    The implementation is verified to support the following GA4 features:
+    * Funnel Exploration: Visualizing drop-off rates between Step 1 and the Final Conversion.
+    * Custom Dimensions: Registration of step_number and step_label in GA4 Admin for granular filtering.
+    * DebugView Validation: Real-time stream monitoring to ensure 100% data accuracy.
+
+🧪 Verification Workflow
+    * GTM Preview Mode: Real-time validation of tag firing sequence and variable resolution.
+    * Network Inspection: Monitoring collect?v=2 requests in the browser console.
+    * GA4 DebugView: Final server-side confirmation of parameter ingestion.
+
+🌐 Deployment (Vercel)
+    This project is optimized for Vercel.
+    * Connect GitHub: Import the repository into the Vercel Dashboard.
+    * Add Env Vars: Under Project Settings > Environment Variables, add NEXT_PUBLIC_GTM_ID and NEXT_PUBLIC_GA4_ID.
+    * Deploy: Vercel automatically builds and deploys the project with every push to the main branch.
+
